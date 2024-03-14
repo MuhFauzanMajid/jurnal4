@@ -2,8 +2,7 @@
 {
     private static void Main(string[] args)
     {
-        Console.WriteLine("Testing KodeBuah");
-        Console.WriteLine();
+        Console.WriteLine("Testing KodeBuah\n");
         KodeBuah kodeBuah = new KodeBuah();
 
         Console.Write("Masukkan nama buah : ");
@@ -20,6 +19,13 @@
         {
             Console.WriteLine("Kode buah untuk " + input + ": " + kodeBuahinput);
         }
+        Console.WriteLine("\nTesting Posisi Karakter Game\n");
+        PosisiKarakterGame posisi = new PosisiKarakterGame();
+        posisi.TombolW();
+        posisi.TombolX();
+        posisi.TombolS();
+        posisi.TombolW();
+        posisi.TombolW();
     }
 }
 
@@ -51,6 +57,72 @@ class KodeBuah
         else
         {
             return null; // atau bisa mengembalikan nilai lain jika kode pos tidak ditemukan
+        }
+    }
+}
+
+class PosisiKarakterGame
+{
+    private Posisi currentState;
+
+    public PosisiKarakterGame()
+    {
+        currentState = Posisi.Berdiri;
+        Console.WriteLine("Posisi Default berdiri");
+    }
+    
+    enum Posisi
+    {
+        Tengkurap,
+        Jongkok,
+        Berdiri,
+        Terbang
+    }
+    public void TombolS()
+    {
+        if (currentState == Posisi.Jongkok)
+        {
+            currentState = Posisi.Tengkurap;
+            Console.WriteLine("Posisi berubah menjadi tengkurap");
+            Console.WriteLine("Posisi istirahat");
+        }
+        else if (currentState == Posisi.Terbang)
+        {
+            currentState = Posisi.Berdiri;
+            Console.WriteLine("Posisi berubah menjadi berdiri");
+            Console.WriteLine("Posisi standby");
+        }
+        else if (currentState == Posisi.Berdiri)
+        {
+            currentState = Posisi.Jongkok;
+            Console.WriteLine("Posisi berubah menjadi jongkok");
+        }
+    }
+    public void TombolX()
+    {
+        if(currentState == Posisi.Terbang)
+        {
+            currentState = Posisi.Jongkok;
+            Console.WriteLine("Posisi berubah menjadi jongkok");
+        }
+    }
+    public void TombolW()
+    {
+        if (currentState == Posisi.Tengkurap)
+        {
+            currentState = Posisi.Jongkok;
+            Console.WriteLine("Posisi berubah menjadi jongkok");
+        }
+        else if (currentState == Posisi.Jongkok)
+        {
+            currentState = Posisi.Berdiri;
+            Console.WriteLine("Posisi berubah menjadi berdiri");
+            Console.WriteLine("Posisi standby");
+        }
+        else if (currentState == Posisi.Berdiri)
+        {
+            currentState = Posisi.Terbang;
+            Console.WriteLine("Posisi berubah menjadi terbang");
         }
     }
 }
